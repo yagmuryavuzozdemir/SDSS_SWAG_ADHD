@@ -1,17 +1,17 @@
-,feature,frequency,percentage = freq/381,neg_beta,pos_beta
-’Insula-R’ ? ’Paracentral-Lobule-R’,X.54.21.,381,1,1,0
-Frontal-Sup-R’? ’Frontal-Mid-R’,X.72.68.,381,1,0,1
-Temporal-Mid-L’? ’Lingual-L’,X.101.85.,381,1,0,1
-’Insula-L’? ’Frontal-Mid-L’,X.116.89.,381,1,1,0
-’Frontal-Sup-R’? ’Frontal-Inf-Orb-R’,X.104.34.,377,0.989501312,0.99734748,0.00265252
-’Supp-Motor-Area-L’? ’SupraMarginal-L’,X.151.147.,377,0.989501312,0,1
-Frontal-Sup-R’? ’ParahippocampaGyrus’,X.72.11.,363,0.952755906,1,0
-’Vermis-1-2’? ’Temporal-Mid-L’,X.150.114.,363,0.952755906,0,1
-’Vermis-4-5’? ’Frontal-Sup-Orb-R’,X.126.2.,325,0.853018373,1,0
-’Frontal-Sup-Medial-L’? ’Cingulum-Mid-L’,X.124.99.,284,0.745406824,1,0
-’Temporal-Mid-L’? ’Pallidum-R’,X.114.40.,281,0.737532808,0.021352313,0.978647687
-’Occipital-Mid-L’? ’Cerebelum-Crus2-L’,X.162.73.,267,0.700787402,0,1
-’Cingulum-Ant-L’$?'Paracentral-Lobule-R’,X.47.21.,258,0.677165354,1,0
-’Temporal-Pole-Sup-R’? ’Frontal-Mid-L’,X.146.89.,235,0.6167979,1,0
-’Frontal-Mid-L’? ’Caudate-R’,X.108.27.,207,0.543307087,0,1
-’Frontal-Mid-L’?’Frontal-Sup-L’,X.108.91.,201,0.527559055,0,1
+Column1,feature,frequency,percentage = freq/381,neg_beta,pos_beta,Column2
+’Insula-R’ ? ’Paracentral-Lobule-R’,X.54.21.,381,1,1,0,OO
+Frontal-Sup-R’? ’Frontal-Mid-R’,X.72.68.,381,1,0,1,FF
+Temporal-Mid-L’? ’Lingual-L’,X.101.85.,381,1,0,1,TO
+’Insula-L’? ’Frontal-Mid-L’,X.116.89.,381,1,1,0,FO
+’Frontal-Sup-R’? ’Frontal-Inf-Orb-R’,X.104.34.,377,0.989501312,0.99734748,0.00265252,FF
+’Supp-Motor-Area-L’? ’SupraMarginal-L’,X.151.147.,377,0.989501312,0,1,FO
+Frontal-Sup-R’? ’ParahippocampaGyrus’,X.72.11.,363,0.952755906,1,0,FT
+’Vermis-1-2’? ’Temporal-Mid-L’,X.150.114.,363,0.952755906,0,1,TO
+’Vermis-4-5’? ’Frontal-Sup-Orb-R’,X.126.2.,325,0.853018373,1,0,FO
+’Frontal-Sup-Medial-L’? ’Cingulum-Mid-L’,X.124.99.,284,0.745406824,1,0,FO
+’Temporal-Mid-L’? ’Pallidum-R’,X.114.40.,281,0.737532808,0.021352313,0.978647687,TO
+’Occipital-Mid-L’? ’Cerebelum-Crus2-L’,X.162.73.,267,0.700787402,0,1,OO
+’Cingulum-Ant-L’$?'Paracentral-Lobule-R’,X.47.21.,258,0.677165354,1,0,FO
+’Temporal-Pole-Sup-R’? ’Frontal-Mid-L’,X.146.89.,235,0.6167979,1,0,FT
+’Frontal-Mid-L’? ’Caudate-R’,X.108.27.,207,0.543307087,0,1,FO
+’Frontal-Mid-L’?’Frontal-Sup-L’,X.108.91.,201,0.527559055,0,1,FF
