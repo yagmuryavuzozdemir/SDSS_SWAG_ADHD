@@ -493,7 +493,7 @@ plot(g)
 
 
 
-V(g)$name = c("O", "O", "F", "F", "T", "F", "F", "F", "T", "F", "F", "TF", "T", "O", "O")
+V(g)$name = c("FO", "OO", "FT", "FF", "TO", "FF", "FO", "FF", "TO", "FO", "FO",  "FO","FT", "TO", "FO", "OO")
 V(g)$color = col_vertex
 V(g)$shape = "circle"
 V(g)$label = V(g)$name
