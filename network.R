@@ -218,18 +218,30 @@ relation_mat[,3] = upperTriangle(intensity,byrow = T)/381
 
 med_beta = matrix(NA, nrow = length(most_index),ncol = 2)
 med_beta[,1]=colnames(corr)
-for(i in seq_along(most_index)){
-  if(median(sign_betas[[i]])>0){
+# for(i in seq_along(most_index)){
+#   if(median(sign_betas[[i]])>0){
+#     med_beta[i,2]="#ACD6B0"
+#   }else{
+#     med_beta[i,2]="#C2A5CF"
+#   }
+# }
+
+k=rep(NA, 16)
+for(i in 1:16){
+  k[i]=which(med_beta[i,1]==variable)
+}
+
+for(i in 1:16){
+  med_beta[i,2]=median_betas[k[i]]
+}
+
+for(i in 1:16){
+  if(med_beta[i,2]<0){
     med_beta[i,2]="#ACD6B0"
   }else{
     med_beta[i,2]="#C2A5CF"
   }
 }
-
-
-
-
-
 
 
 # #variables that are mostly together
@@ -568,11 +580,11 @@ rasterImage(legend_corr, xleft = 1.4, ybottom = -.125, xright = 1.5,ytop = .925)
 # Legend Beta
 #legend(x = -1.6, y = -.85,legend=c("Positive $\\hat{\\beta}$","Negative $\\hat{\\beta}$"),fill=unique(col_vertex),bty = "n", cex = cex)
 
-legend(x = -2, y = -.7,legend=c("Positive coefficient","Negative coefficient"),fill=unique(col_vertex),bty = "n", cex = cex)
+legend(x = -1.75, y = -.7,legend=c("Positive coefficient","Negative coefficient"),fill=unique(col_vertex),bty = "n", cex = cex)
 
 # Legend Circle
-text(x=-2,y=1.1,"Percentage of models",xpd=NA, cex = cex, pos = 4)
-text(x=-2,y=1.0,"including the feature",xpd=NA, cex = cex, pos = 4)
+text(x=-1.7,y=1.1,"Percentage of models",xpd=NA, cex = cex, pos = 4)
+text(x=-1.7,y=1.0,"including the feature",xpd=NA, cex = cex, pos = 4)
 
 lab_inc = c(expression(paste("[100%, 75%)")),
             expression(paste("[75%, 50%)")),
@@ -581,8 +593,8 @@ lab_inc = c(expression(paste("[100%, 75%)")),
 y = seq(.1,.8,l = 4)
 cex = seq(.8,4,l = 4)
 for (i in 1:length(lab_inc)){
-  points(-1.8, y[i], xpd=NA, pch = 1, cex = (cex)[i])
-  text(x=-1.7,y = y[i], rev(lab_inc)[i],xpd=NA, cex = cex, pos = 4)
+  points(-1.7, y[i], xpd=NA, pch = 1, cex = (cex)[i])
+  text(x=-1.6,y = y[i], rev(lab_inc)[i],xpd=NA, cex = cex, pos = 4)
 }
 
 # Legend Line
@@ -592,8 +604,9 @@ lab_inc = c(expression(paste("[100%, 75%)")),
             expression(paste("[25%, 0%]")))
 y = seq(-.2,.8,l = 4)
 
-text(x=1,y=-.5,"Link intensity ",xpd=NA, cex = cex, pos = 4)
-text(x=1,y=-.6,"between pairs of features:",xpd=NA, cex = cex, pos = 4)
+text(x=1.2,y=-.4,"Link intensity ",xpd=NA, cex = cex, pos = 4)
+text(x=1.2,y=-.5,"between pairs",xpd=NA, cex = cex, pos = 4)
+text(x=1.2,y=-.6,"of features:",xpd=NA, cex = cex, pos = 4)
 y = seq(-.7,-1.1,l = 4)
 lwd = seq(.8,10,l = 4)
 
