@@ -93,6 +93,8 @@ freq_table$freq = as.numeric(freq_table$freq)
 freq_ordered = freq_table[order(freq_table$freq, decreasing = T),]
 freq_ordered_trimmed = freq_ordered[1:16,]
 
+write.csv(freq_ordered, file = "freq_ordered.csv")
+
 most_index = which(freq_table$freq>200, arr.ind = T)
 
 ### adhd_network_data: relative frequency and sign of the coefficients of each feature
@@ -291,8 +293,6 @@ save(relation_mat, file = "relation_mat.Rda")
 save(adhd_network_data, file = "adhd_network_data.Rda")
 save(med_beta, file = "med_beta.Rda")
 save(mat_col, file = "mat_col.Rda")
-
-
 
 
 #### NETWORK
@@ -505,7 +505,7 @@ plot(g)
 
 
 
-V(g)$name = c("FO", "OO", "FT", "FF", "TO", "FF", "FO", "FF", "TO", "FO", "FO",  "FO","FT", "TO", "FO", "OO")
+V(g)$name = c("M", "A", "G", "B", "C", "E", "O", "P", "K", "D", "J",  "I","N", "H", "F", "L")
 V(g)$color = col_vertex
 V(g)$shape = "circle"
 V(g)$label = V(g)$name
@@ -515,12 +515,13 @@ V(g)$label.loc = 0.7
 #V(g)$label.family = "sans"
 V(g)$label.dist = c(rep(0,16))
 #V(g)$label.cex = c(1.25,1.25,1.25,1.25,.55,rep(.45,length(V(g)$name)-5))
+V(g)$size = 2*(adhd_network_data$percentage/max(adhd_network_data$percentage))*vertex_size
 V(g)$label.cex = V(g)$size/29
 V(g)$label.degree = c(rep(pi/2,8),rep(pi,8))
 # V(g)$label.degree[9] = 3*pi/2
 # V(g)$label.degree[15] = 3*pi/2
 # V(g)$label.degree[18] = 3*pi/2
-V(g)$size = 2*(adhd_network_data$percentage/max(adhd_network_data$percentage))*vertex_size
+
 
 
 
@@ -549,7 +550,7 @@ m = 200
 # cols = rev(RColorBrewer::brewer.pal(10, name = "RdBu"))
 # colfunc1 <- colorRampPalette(c(cols[2], cols[5]))
 # colfunc2 <- colorRampPalette(c(cols[6], cols[9]))
-fun_color_range = colorRampPalette(colors = c("red", "white", "blue"))
+fun_color_range = colorRampPalette(colors = c("blue", "white", "red"))
 cols = fun_color_range(m)
 
 
@@ -566,6 +567,7 @@ cols = fun_color_range(m)
                   # ,"\\usepackage{amsfonts}"))
 
 ## Legend
+set.seed(1)
 plot(g, rescale = T)
 ## Legend
 ## Legend
@@ -574,13 +576,13 @@ cex = .85
 legend_corr = as.raster(matrix(rev(cols), ncol = 1))
 text(x=0.9,y=1.1,"Spearman correlation" ,xpd=NA, pos = 4,cex=cex)
 text(x=0.9,y=1.0, "between features",xpd=NA, cex = cex, pos = 4)
-text(x=1.3, y = seq(-.1,.9,l=5), labels = seq(-1,1,l=5),cex=cex)
-rasterImage(legend_corr, xleft = 1.4, ybottom = -.125, xright = 1.5,ytop = .925)
+text(x=1.15, y = seq(-.1,.9,l=5), labels = seq(-1,1,l=5),cex=cex)
+rasterImage(legend_corr, xleft = 1.25, ybottom = -.125, xright = 1.35,ytop = .925)
 
 # Legend Beta
 #legend(x = -1.6, y = -.85,legend=c("Positive $\\hat{\\beta}$","Negative $\\hat{\\beta}$"),fill=unique(col_vertex),bty = "n", cex = cex)
 
-legend(x = -1.75, y = -.7,legend=c("Positive coefficient","Negative coefficient"),fill=unique(col_vertex),bty = "n", cex = cex)
+legend(x = -1.7, y = -.7,legend=c("Negative coefficient","Positive coefficient"),fill=unique(col_vertex),bty = "n", cex = cex)
 
 # Legend Circle
 text(x=-1.7,y=1.1,"Percentage of models",xpd=NA, cex = cex, pos = 4)
@@ -590,11 +592,11 @@ lab_inc = c(expression(paste("[100%, 75%)")),
             expression(paste("[75%, 50%)")),
             expression(paste("[50%, 25%)")),
             expression(paste("[25%, 0%]")))
-y = seq(.1,.8,l = 4)
-cex = seq(.8,4,l = 4)
+y = c(0.1,0.25,0.47,0.8)
+cex = seq(.8,8,l = 4)
 for (i in 1:length(lab_inc)){
-  points(-1.7, y[i], xpd=NA, pch = 1, cex = (cex)[i])
-  text(x=-1.6,y = y[i], rev(lab_inc)[i],xpd=NA, cex = cex, pos = 4)
+  points(-1.75, y[i], xpd=NA, pch = 1, cex = (cex)[i])
+  text(x=-1.65,y = y[i], rev(lab_inc)[i],xpd=NA, cex = cex, pos = 4)
 }
 
 # Legend Line
