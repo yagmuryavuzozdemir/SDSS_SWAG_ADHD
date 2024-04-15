@@ -41,6 +41,8 @@ test_data[test_data == "ADHD-C" | test_data == "ADHD-H" | test_data == "ADHD-I"]
 
 data.train = data.frame(y_train,x_train)
 
+library(glmnet)
+
 fit_glm = glmnet(x_train, y_train, family = "binomial", alpha = 1, lambda = NULL)
 
 
@@ -56,37 +58,6 @@ error = 1-mean(glm_pred==test_data[,1])
 
 
 
-library(glmnet)
-# Find the best lambda using cross-validation
-set.seed(123) 
-cv.lasso <- cv.glmnet(as.matrix(x_train), y_train, alpha = 1, family = "binomial")
-# Fit the final model on the training data
-model <- glmnet(x_train, y_train, alpha = 1, family = "binomial",
-                lambda = cv.lasso$lambda.min)
-# Display regression coefficients
-coef(model)
-# Make predictions on the test data
-x.test <- model.matrix(test_data...1. ~., test_data)[,-1]
-probabilities <- model%>%predict(newx = as.matrix(test_data[,-1]))
-predicted.classes <- ifelse(probabilities > 0.5, "1", "0")
-# Model accuracy
-observed.classes <- test_data$test_data...1.
-mean(predicted.classes == observed.classes)
 
 
 
-
-set.seed(123) 
-cv.lasso <- cv.glmnet(as.matrix(x_train), y_train, alpha = 1, family = "binomial")
-# Fit the final model on the training data
-model <- glmnet(x_train, y_train, alpha = 1, family = "binomial",
-                lambda = cv.lasso$lambda.min)
-# Display regression coefficients
-coef(model)
-# Make predictions on the test data
-x.test <- model.matrix(y_train ~., test.data)[,-1]
-probabilities <- model%>%predict(newx = as.matrix(test_data[,-1]))
-predicted.classes <- ifelse(probabilities > 0.5, "1", "0")
-# Model accuracy
-observed.classes <- test_data$test_data...1.
-mean(predicted.classes == observed.classes)
