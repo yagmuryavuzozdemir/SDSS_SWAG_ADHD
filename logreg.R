@@ -49,7 +49,7 @@ pred = (exp(pred))/(exp(pred)+1)
 glm_pred = rep(0, length(pred))
 glm_pred[pred>.5]=1
 table(glm_pred,test_data[,1])
-errors[i] = 1-mean(glm_pred==test_data[,1])
+error = 1-mean(glm_pred==test_data[,1])
 
 
 
