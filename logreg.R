@@ -1,4 +1,4 @@
-adhd = read.csv("C:/Users/yagmu/Desktop/Auburn/Research/project/datasetADHD/train_data.csv")
+adhd = read.csv("train_data.csv")
 adhd = t(adhd)
 colnames(adhd) = as.character(adhd[2,])
 adhd = adhd[-(1:2),]
