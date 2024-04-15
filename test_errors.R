@@ -1,4 +1,4 @@
-adhd = read.csv("C:/Users/yagmu/Desktop/Auburn/Research/project/datasetADHD/train_data.csv")
+adhd = read.csv("train_data.csv")
 adhd = t(adhd)
 colnames(adhd) = as.character(adhd[2,])
 adhd = adhd[-(1:2),]
@@ -21,7 +21,7 @@ y_train = y[-ind]
 x_test = predictors[ind,]
 x_train = predictors[-ind,]
 
-load("C:/Users/yagmu/Desktop/padmini/ADHD_package.Rda")
+load("ADHD_package.Rda")
 
 min_error = min(train_swag_svml$cv_alpha)
 
