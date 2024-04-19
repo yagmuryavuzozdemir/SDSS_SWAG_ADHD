@@ -320,7 +320,7 @@ load("adhd_network_data.Rda")
 load("mat_col.Rda")
 load("med_beta.Rda")
 
-
+#### The following is to create the network in figure 3.
 
 # Color of edges
 index = rep(NA,nrow(relation_mat))
@@ -502,7 +502,7 @@ plot(g)
 
 
 
-
+### The vertex properties of the network in Figure 3
 
 
 V(g)$name = c("M", "A", "G", "B", "C", "E", "O", "P", "K", "D", "J",  "I","N", "H", "F", "L")
@@ -523,7 +523,7 @@ V(g)$label.degree = c(rep(pi/2,8),rep(pi,8))
 # V(g)$label.degree[18] = 3*pi/2
 
 
-
+### The edge properties of the network in Figure 3
 
 
 # duplicate lines
@@ -622,144 +622,6 @@ dev.off()
 
 
 
-############################################################################################################################################
-###################################################### NETWORK 1274a ######################################################################
-############################################################################################################################################
-
-gene = "200c"
-
-i1 = which(relation_mat_dup[,1] == gene)
-i2 = which(relation_mat_dup[,2] == gene)
-
-single_gene = relation_mat_dup[c(i1,i2),]
-single_gene = single_gene[-which(single_gene$rel_strenght == 0),]
-
-index_other = c(single_gene$X2[1:5],single_gene$X1[6:9],gene)
-
-index_pair = t(combn(index_other,2))
-
-index = rep(NA,nrow(index_pair))
-
-for(i in 1:nrow(index_pair)){
-  
-  tamer = which(relation_mat_dup$X1 == index_pair[i,1] & relation_mat_dup$X2 == index_pair[i,2])
-  if(length(tamer) != 0){
-    index[i] = tamer
-  }
-}
-
-index = na.omit(index)
-
-
-net_gene_200c = relation_mat_dup[index,]
-net_gene_200c = net_gene_200c[-which(net_gene_200c$rel_strenght == 0),]
-
-gene_network_data_375 = adhd_network_data
-
-
-single_gene_mat = single_gene
-col_edge = col_edge[c(i1,i2)]
-
-### Create graph
-g = graph.data.frame(single_gene_mat, directed=F)
-vertex_size = 40
-par(mfrow = c(1,1),mar = c(0,0,0,0), oma = c(0,0,0,0))
-
-# layout
-l = layout_with_fr(g)
-l = norm_coords(l)
-V(g)$x = l[,1]
-V(g)$y = l[,2]
-
-V(g)$color = col_vertex[-c(8,16)]
-V(g)$shape = "circle"
-V(g)$label = V(g)$name
-V(g)$label.color = "black"
-V(g)$label.dist = c(rep(0,5),-1.5,-1.5,rep(1,length(V(g)$name)-7))
-V(g)$label.font = 1
-V(g)$label.loc = 1
-V(g)$label.cex = c(1,1,.8,.7,.7,rep(.7,length(V(g)$name)-5))
-V(g)$label.degree = c(rep(pi/2,5),pi/2,rep(pi/2,length(V(g)$name)-6))
-V(g)$size = (gene_network_data_375$percentage/max(gene_network_data_375$percentage))*vertex_size
-
-# duplicate lines
-
-edge_width = (single_gene_mat$rel_strenght)*50
-edge_width[edge_width > MAX_EDGE_WIDTH] = MAX_EDGE_WIDTH
-
-E(g)$color = col_edge[-c(18,19,20)]
-E(g)$width = edge_width
-E(g)$curved = .2
-E(g)$arrow.size = .5
-plot(g)
-#############
-
-
-library(tikzDevice)
-tikz("tex/network_375.tex", width = 8, height = 5, standAlone = TRUE,
-     packages = c("\\usepackage{tikz}",
-                  "\\usepackage[active,tightpage,psfixbb]{preview}",
-                  "\\PreviewEnvironment{pgfpicture}",
-                  "\\setlength\\PreviewBorder{0pt}",
-                  "\\usepackage{amssymb}",
-                  "\\usepackage{bm}","\\usepackage{amsthm}","\\usepackage{amsbsy}"
-                  ,"\\usepackage{amsbsy}"
-                  ,"\\usepackage{amsbsy}"
-                  ,"\\usepackage{amsfonts}"))
-
-## Legend
-plot(g, rescale = T)
-## Legend
-## Legend
-cex = .85
-## Legend correlation
-legend_corr = as.raster(matrix(rev(cols), ncol = 1))
-text(x=1.4,y=1.1,"Linear correlation $\\hat{\\rho}$" ,xpd=NA, pos = 4,cex=cex)
-text(x=1.4,y=1.05, "between mi-RNAs:",xpd=NA, cex = cex, pos = 4)
-text(x=1.7, y = seq(-.1,.9,l=5), labels = seq(-1,1,l=5),cex=cex)
-rasterImage(legend_corr, xleft = 1.8, ybottom = -.125, xright = 1.9,ytop = .925)
-
-# Legend Beta
-legend(x = -2.3, y = -.7,legend=c("Positive $\\hat{\\beta}$","Negative $\\hat{\\beta}$"),fill=unique(col_vertex[c(1,3)]),bty = "n", cex = cex)
-
-# Legend Circle
-text(x=-2.3,y=1.1,"Percentage of model",xpd=NA, cex = cex, pos = 4)
-text(x=-2.3,y=1.05,"including mi-RNA:",xpd=NA, cex = cex, pos = 4)
-
-lab_inc = c("[100\\%, 85\\%)",
-            "[85\\%, 60\\%)",
-            "[60\\%, 45\\%)",
-            "[45\\%, 30\\%)",
-            "[30\\%, 15\\%)",
-            "[15\\%, 0\\%]")
-y = seq(-.2,.8,l = 6)
-cex = seq(.8,4,l = 6)
-for (i in 1:length(lab_inc)){
-  points(-2.1, y[i], xpd=NA, pch = 1, cex = (cex)[i])
-  text(x=-2,y = y[i], rev(lab_inc)[i],xpd=NA, cex = cex, pos = 4)
-}
-
-# Legend Line
-lab_inc = c("[100\\%, 75\\%)",
-            "[75\\%, 50\\%)",
-            "[50\\%, 25\\%)",
-            "[25\\%, 0\\%]")
-y = seq(-.2,.8,l = 6)
-
-
-text(x=1.4,y=-.7,"Link intensity ",xpd=NA, cex = cex, pos = 4)
-text(x=1.4,y=-.8,"between pairs mi-RNA:",xpd=NA, cex = cex, pos = 4)
-y = seq(-1,-1.4,l = 4)
-lwd = seq(.8,10,l = 4)
-
-for (i in 1:length(lab_inc)){
-  lines(x = c(1.6,1.7), c(y[i],y[i]), xpd=NA, pch = 1, lwd = rev(lwd)[i])
-  text(x=1.8,y = y[i], (lab_inc)[i],xpd=NA, lwd = 1, pos = 4, cex = cex)
-}
-
-
-
-dev.off()
 
 
 
